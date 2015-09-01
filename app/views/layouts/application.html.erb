@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
 <html>
 <head>
   <title>Airbnbruby</title>
@@ -8,7 +11,23 @@
 </head>
 <body>
 
-<%= yield %>
+	<% if user_signed_in? %>
+    Signed in as <%= current_user.email %>. Not you?
+    <%= link_to "Edit profile", edit_user_registration_path %>
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+  <% else %>
+    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+  <% end %>
+  <br>
+
+<!--   <%= link_to 'Browse Tags', products_path %>
+  <br>
+
+  <% flash.each do |name, msg| %>
+    <%= content_tag :div, msg, id: "flash_#{name}" %>
+  <% end %> -->
+
+	<%= yield %>
 
 </body>
 </html>
